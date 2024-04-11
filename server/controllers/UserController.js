@@ -48,21 +48,24 @@ const register = async (req, res) => {
 };
 
 const getBalance = (id) => {
-  UserDB.data.forEach((u) => {
-    if (id == u.id) {
-      return u.balance;
-    }
-  });
+  user = UserDB.data.find((u) => u.id == id);
+
+  if (user == null) {
+    return "User not found";
+  } else {
+    return user.balance;
+  }
 };
 
 const updateBalance = async (id, ammount) => {
-  UserDB.data.forEach((u) => {
-    if (id == u.id) {
-      u.balance -= ammount;
-    }
-  });
+  user = UserDB.data.find((u) => u.id == id);
 
-  // write to file
+  if (user == null) {
+    return "User not found";
+  } else {
+    user.balance -= ammount;
+  }
+
   await fsPromises.writeFile(
     path.join(__dirname, "..", "models", "users.json"),
     JSON.stringify(UserDB.data)

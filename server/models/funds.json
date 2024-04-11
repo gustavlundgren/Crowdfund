@@ -1,1 +1,16 @@
-[{"id":"g2pc4ctgluv4zd14","name":"test","description":"test","goal":100,"balance":0}]
+[
+  {
+    "id": "g2pc4ctgluv4zd14",
+    "name": "Test",
+    "description": "test",
+    "goal": 100,
+    "balance": 120
+  },
+  {
+    "id": "2dwbbbooluvbxehq",
+    "name": "Bil",
+    "description": "Bil fond",
+    "goal": 1000,
+    "balance": 400
+  }
+]

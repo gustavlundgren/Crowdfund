@@ -1,10 +1,17 @@
 const express = require("express");
+const userRoutes = require("./routes/UserRoutes");
+const fundRoutes = require("./routes/FundRoutes");
+
+/*Config*/
 const app = express();
 const PORT = 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
+/*Middleware*/
+app.use(express.json());
+
+/*Routes*/
+app.use("/user", userRoutes);
+app.use("/funds", fundRoutes);
 
 app.listen(PORT, () => {
   console.log(`Sevrer is running on port ${PORT}`);

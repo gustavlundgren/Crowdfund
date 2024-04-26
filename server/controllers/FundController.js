@@ -27,12 +27,41 @@ const getFunds = (req, res) => {
   }
 };
 
+const getFundById = (fundId) => {
+  return FundDB.data.find((f) => f.id == fundId);
+};
+
+const getFundsByUserId = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const funds = FundDB.data.filter((f) => f.userId == id);
+
+    res.status(200).json(funds);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
+const getUserTransactionHistory = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const transactions = TransactionDB.data.filter((t) => t.userId == id);
+
+    res.status(200).send(transactions);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
 const createFund = async (req, res) => {
-  const { name, description, goal } = req.body;
+  const { userId, name, description, goal } = req.body;
 
   try {
     const newFund = {
       id: uniqid(),
+      userId,
       name,
       description,
       goal,
@@ -63,9 +92,18 @@ const donate = async (req, res) => {
   }
 
   try {
+    const d = new Date();
+
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    const date = `${year}-${month}-${day}`;
+
     const newTransaction = {
       id: uniqid(),
       ammount,
+      name: getFundById(fundId).name,
+      date,
       fundId,
       userId,
     };
@@ -90,9 +128,17 @@ const donate = async (req, res) => {
       path.join(__dirname, "..", "models", "transactions.json"),
       JSON.stringify(TransactionDB.data)
     );
+
+    res.status(200).json({ newTransaction });
   } catch (err) {
     res.status(500).json({ error: err });
   }
 };
 
-module.exports = { getFunds, createFund, donate };
+module.exports = {
+  getFunds,
+  createFund,
+  donate,
+  getFundsByUserId,
+  getUserTransactionHistory,
+};

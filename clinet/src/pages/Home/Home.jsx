@@ -1,8 +1,10 @@
-import axios from "../../api/index";
+import axios from "../../api";
 import { useEffect, useState } from "react";
 import FundCard from "../../components/FundCard";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [funds, setFunds] = useState([]);
 
   const fetchFunds = async () => {
@@ -30,10 +32,12 @@ const Home = () => {
                 description={fund.description}
                 goal={fund.goal}
                 balance={fund.balance}
+                view={false}
               />
             );
           })
         : ""}
+      <button onClick={() => navigate("/profile")}>Visa Profil</button>
     </div>
   );
 };

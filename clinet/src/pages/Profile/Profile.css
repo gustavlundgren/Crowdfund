@@ -1,0 +1,9 @@
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+.transactions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}

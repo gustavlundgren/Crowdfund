@@ -2,6 +2,7 @@ import axios from "../../api";
 import { useEffect, useState } from "react";
 import FundCard from "../../components/FundCard";
 import { useNavigate } from "react-router-dom";
+import "./Home.css";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -23,6 +24,10 @@ const Home = () => {
 
   return (
     <div>
+      <div className='header'>
+        <h1 className='title'>Crowdfunding</h1>
+      </div>
+
       {funds
         ? funds.map((fund) => {
             return (

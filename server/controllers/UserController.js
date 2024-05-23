@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const uniqid = require("uniqid");
 
@@ -34,9 +33,9 @@ const login = async (req, res) => {
       return res.status(401).status({ error: "Invalid password" });
     }
 
-    user.passwordHash = undefined;
-
-    res.status(200).json({ user });
+    res.status(200).json({
+      user: { id: user.id, username: user.username, balance: user.balance },
+    });
   } catch (err) {
     res.status(500).json({ error: err });
   }

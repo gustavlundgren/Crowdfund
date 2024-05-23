@@ -62,7 +62,16 @@ const Profile = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("id");
+    navigate("/login");
+  };
+
   useEffect(() => {
+    if (localStorage.getItem("id") === null) {
+      navigate("/login");
+    }
+
     getUser();
     getUserFunds();
     getUserTransactions();
@@ -106,7 +115,10 @@ const Profile = () => {
         )}
       </div>
 
-      <button onClick={() => navigate("/")}>Tillbaka</button>
+      <div className='button-container'>
+        <button onClick={() => navigate("/")}>Tillbaka</button>
+        <button onClick={() => handleLogout()}>Logga Ut</button>
+      </div>
     </div>
   );
 };
